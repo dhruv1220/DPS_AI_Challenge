@@ -115,3 +115,78 @@ NOTE: Putting output for only one Time-Series for reference
 Inferences:-  
 1. Trend with Alcohol Accidents is generally increasing.  
 2. Trend for all other types of accidents is first increasing, then decreasing and finally increasing again.  
+
+## Modelling
+For training, used data till 2020 (included)  
+For testing, used 2021 data.  
+**Root Mean Square Error** used as evaluation metric.
+### ARIMA
+Used `auto_arima` function to get `p`, `d` and `q` values.  
+NOTE: Putting output for only one Time-Series for reference
+
+![Screenshot 2022-11-10 at 7 24 25 PM](https://user-images.githubusercontent.com/35871415/201110099-f5be6a98-3188-4c6c-b00f-fde0b59722b5.png)
+
+Then, changed parameters on basis of ACF and PACF plot results.
+
+![Screenshot 2022-11-10 at 7 26 17 PM](https://user-images.githubusercontent.com/35871415/201110501-6640fde1-eed3-4b92-8eb4-9058dac7a26b.png)
+
+RMSE Values on Testing Data
+
+**MONATSZAHL** | **AUSPRAEGUNG** | **RMSE**
+--- | --- | ---
+Alkoholunfälle | insgesamt | 10.749665459844213
+Alkoholunfälle | Verletzte und Getötete | 8.55673846281317
+Fluchtunfälle | insgesamt | 119.85712032903943
+Fluchtunfälle | Verletzte und Getötete | 16.330702906031284
+Verkehrsunfälle | insgesamt | 364.02320587667765
+Verkehrsunfälle | mit Personenschäden | 63.00209713497466
+Verkehrsunfälle | Verletzte und Getötete | 86.55810641566794
+
+### LSTM
+Each prediction is based on previous 15 years data.  
+Epochs set to 20.  
+
+NOTE: Putting output plot for only one Time-Series for reference
+
+![Screenshot 2022-11-10 at 8 12 40 PM](https://user-images.githubusercontent.com/35871415/201121527-703cc9cb-9dc8-46ed-84d1-850586c1de38.png)
+
+RMSE Values on Testing Data
+
+**MONATSZAHL** | **AUSPRAEGUNG** | **RMSE**
+--- | --- | ---
+Alkoholunfälle | insgesamt | 11.485624201168354
+Alkoholunfälle | Verletzte und Getötete | 8.362521074095543
+Fluchtunfälle | insgesamt | 189.65707940004074
+Fluchtunfälle | Verletzte und Getötete | 16.14229145295978
+Verkehrsunfälle | insgesamt | 573.9587146559661
+Verkehrsunfälle | mit Personenschäden | 158.0322659153656
+Verkehrsunfälle | Verletzte und Getötete | 99.53329218256376
+
+### XGBoost
+Each prediction is based on previous 5, 10 or 15 years data.  
+
+NOTE: Putting output plot for only one Time-Series for reference  
+
+![Screenshot 2022-11-10 at 8 40 45 PM](https://user-images.githubusercontent.com/35871415/201132267-b69b92a5-fcc7-4402-b5bd-595f1d4d9db2.png)
+
+RMSE Values on Testing Data
+
+**MONATSZAHL** | **AUSPRAEGUNG** | **RMSE**
+--- | --- | ---
+Alkoholunfälle | insgesamt | 9.522
+Alkoholunfälle | Verletzte und Getötete | 7.308
+Fluchtunfälle | insgesamt | 112.555
+Fluchtunfälle | Verletzte und Getötete | 13.784
+Verkehrsunfälle | insgesamt | 501.732
+Verkehrsunfälle | mit Personenschäden | 54.346
+Verkehrsunfälle | Verletzte und Getötete | 76.001
+
+### DeepAR
+Tried to create a joint model for all the time-series. However, the results came out extremely bad.  
+My hypothesis is we would need more data to train this model better.  
+
+RMSE for combined model: 1280.9237133896029
+
+Individual Output
+
+![Screenshot 2022-11-10 at 8 46 42 PM](https://user-images.githubusercontent.com/35871415/201133656-00c45325-27a2-4c31-94e8-5ea583c3e3c5.png)
