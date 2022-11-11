@@ -190,3 +190,6 @@ RMSE for combined model: 1280.9237133896029
 Individual Output
 
 ![Screenshot 2022-11-10 at 8 46 42 PM](https://user-images.githubusercontent.com/35871415/201133656-00c45325-27a2-4c31-94e8-5ea583c3e3c5.png)
+
+### Conclusion
+After looking at the RMSE scores of the models on the test data as well as the prediction plots vs the expected plots, I decided to use XGBoost as my final model for prediction.
