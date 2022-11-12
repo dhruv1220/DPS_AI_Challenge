@@ -90,7 +90,7 @@ def model_output(year):
                 })
         return df_month[df_month['year'] == year]
     
-    df_new = pd.read_csv('transformed_df.csv')
+    df_new = pd.read_csv('transformed_df.csv', index_col=0)
 
     temp = df_new.copy()
     inp_len = [180,60,120,120,180,180,60]
