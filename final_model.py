@@ -78,18 +78,9 @@ def walk_forward_validation(data, n_out, count):
 
 
 def model_output(year):
-    df = pd.read_csv('220511_monatszahlenmonatszahlen2204_verkehrsunfaelle.csv')
-    
-    # Get first 5 columns
-    df = df.iloc[:,:5]
-
-    # Filter data till 2020
-    df = df[df['JAHR'] <= 2020]
-
-    _, df_month = preprocess_df(df)
-
     # Return value if year is between 2000 and 2020 (included)
     if year>=2000 and year<=2020:
+        df_month = pd.read_csv('preprocessed_df.csv')
         df_month = df_month.rename(columns = {
                 'MONATSZAHL': 'category', 
                 'AUSPRAEGUNG': 'type',
@@ -99,7 +90,7 @@ def model_output(year):
                 })
         return df_month[df_month['year'] == year]
     
-    df_new = transform_df(df_month)
+    df_new = pd.read_csv('transformed_df.csv')
 
     temp = df_new.copy()
     inp_len = [180,60,120,120,180,180,60]
